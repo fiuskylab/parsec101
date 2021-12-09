@@ -7,6 +7,8 @@ module Parsec101
   , testOr1
   , testOr2
   , testOr3
+  , nesting
+  , nesting1
   )
   where
 
@@ -40,7 +42,6 @@ parens = do{ P.char '('
            }
          P.<|> return ()
 
-
 testOr :: P.Parser [Char]
 testOr = P.string "(a)"
          P.<|> P.string "(b)"
@@ -61,3 +62,32 @@ testOr3 = do{ P.try (P.string "(a")
                     ; P.char ')'
                     ; return "(a)"
             } P.<|> P.string "(b)"
+
+
+nesting :: P.Parser Int
+nesting = do{ P.char '(' 
+            ; n <- nesting
+            ; P.char ')'
+            ; m <- nesting
+            ; return (max (n+1) m)
+            }
+          P.<|> return 0
+
+nesting1 :: P.Parser Int
+nesting1 = do{ P.char '(' 
+            ; n <- nesting
+            ; P.char ')'
+            ; max (n+1) <$> nesting
+            }
+
+-- Now let's start trying to create
+-- a more pratical example
+-- :ricardinst!ricardinst@ricardinst.tmi.twitch.tv PRIVMSG #rafiusky :Shizukani shite kudasai!
+username :: P.Parser Char
+username = do{ P.char ':'
+             ; P.letter
+             ; P.char '!'
+             }
+
+-- PING :tmi.twitch.tv
+-- :tmi.twitch.tv 004 rafiuskybot :-
