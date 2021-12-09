@@ -7,3 +7,6 @@ main :: IO ()
 main = do
   run simple "a"
   run simple "-"
+  run parens "(())()"
+  run parens "(()()"
+
