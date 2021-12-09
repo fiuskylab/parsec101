@@ -1,6 +1,9 @@
 module Main where
 
 import Lib
+import Parsec101
 
 main :: IO ()
-main = someFunc
+main = do
+  run simple "a"
+  run simple "-"
