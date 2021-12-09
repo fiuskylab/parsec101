@@ -3,6 +3,7 @@ module Parsec101
   , run
   , parens
   , openClose
+  , testOr
   )
   where
 
@@ -35,3 +36,9 @@ parens = do{ P.char '('
            ; parens
            }
          P.<|> return ()
+
+
+testOr :: P.Parser [Char]
+testOr = P.string "(a)"
+         P.<|> P.string "(b)"
+
