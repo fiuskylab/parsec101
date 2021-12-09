@@ -10,6 +10,7 @@ module Parsec101
   , nesting
   , nesting1
   , word
+  , word1
   )
   where
 
@@ -87,6 +88,8 @@ word = do{ c <- P.letter
               P.<|> return [c]
          }
 
+word1 :: P.Parser [Char]
+word1 = P.many1 P.letter
 -- Now let's start trying to create
 -- a more pratical example
 -- :ricardinst!ricardinst@ricardinst.tmi.twitch.tv PRIVMSG #rafiusky :Shizukani shite kudasai!
