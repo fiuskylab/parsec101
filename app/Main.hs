@@ -29,3 +29,6 @@ main = do
   putStrLn "-----| nesting1 |-----"
   run nesting1 "(())()"
   run nesting1 "(()(()))"
+  putStrLn "-----| word |-----"
+  run word "foo"
+  run word "foo bar baz"

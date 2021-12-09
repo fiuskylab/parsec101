@@ -9,6 +9,7 @@ module Parsec101
   , testOr3
   , nesting
   , nesting1
+  , word
   )
   where
 
@@ -56,13 +57,11 @@ testOr2 :: P.Parser [Char]
 testOr2 = P.try (P.string "(a)")
           P.<|> P.string "(b)"
 
-
 testOr3 :: P.Parser [Char]
 testOr3 = do{ P.try (P.string "(a")
                     ; P.char ')'
                     ; return "(a)"
             } P.<|> P.string "(b)"
-
 
 nesting :: P.Parser Int
 nesting = do{ P.char '(' 
@@ -79,6 +78,14 @@ nesting1 = do{ P.char '('
             ; P.char ')'
             ; max (n+1) <$> nesting
             }
+
+word :: P.Parser [Char]
+word = do{ c <- P.letter
+         ; do { cs <- word
+              ; return (c:cs)
+              }
+              P.<|> return [c]
+         }
 
 -- Now let's start trying to create
 -- a more pratical example
