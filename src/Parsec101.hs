@@ -11,6 +11,7 @@ module Parsec101
   , nesting1
   , word
   , word1
+  , sentence
   )
   where
 
@@ -90,6 +91,16 @@ word = do{ c <- P.letter
 
 word1 :: P.Parser [Char]
 word1 = P.many1 P.letter
+
+sentence :: P.Parser [String]
+sentence = do{ words <- P.sepBy1 word1 separator 
+              ; P.oneOf ".?!"
+              ; return words
+              }
+
+separator :: P.Parser ()
+separator = P.skipMany1 (P.space P.<|> P.char ',')
+
 -- Now let's start trying to create
 -- a more pratical example
 -- :ricardinst!ricardinst@ricardinst.tmi.twitch.tv PRIVMSG #rafiusky :Shizukani shite kudasai!

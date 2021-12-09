@@ -35,3 +35,8 @@ main = do
   putStrLn "-----| word1 |-----"
   run word1 "foo"
   run word1 "foo bar baz"
+  putStrLn "-----| sentence |-----"
+  run sentence "foo."
+  run sentence "foo!bar baz."
+  run sentence "foo,bar,baz."
+  run sentence "foo,bar!baz"
