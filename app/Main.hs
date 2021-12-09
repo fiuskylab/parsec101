@@ -14,3 +14,6 @@ main = do
   putStrLn "-----| testOr |-----"
   run testOr "(a)"
   run testOr "(b)"
+  putStrLn "-----| testOr1 |-----"
+  run testOr1 "(a)"
+  run testOr1 "(b)"

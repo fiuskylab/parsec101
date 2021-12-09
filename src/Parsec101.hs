@@ -4,6 +4,7 @@ module Parsec101
   , parens
   , openClose
   , testOr
+  , testOr1
   )
   where
 
@@ -42,3 +43,8 @@ testOr :: P.Parser [Char]
 testOr = P.string "(a)"
          P.<|> P.string "(b)"
 
+testOr1 :: P.Parser Char
+testOr1 = do{ P.char '(' 
+            ; P.char 'a' P.<|> P.char 'b'
+            ; P.char ')'
+            }
