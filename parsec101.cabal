@@ -27,6 +27,7 @@ library
   exposed-modules:
       Lib
       Parsec101
+      Parsec102
   other-modules:
       Paths_parsec101
   hs-source-dirs:

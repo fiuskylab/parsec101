@@ -2,9 +2,11 @@ module Main where
 
 import Lib
 import Parsec101
+import Parsec102
 
 main :: IO ()
 main = do
+  putStrLn "\t>> Parsec101 <<"
   putStrLn "-----| simple |-----"
   run simple "a"
   run simple "-"
@@ -44,3 +46,8 @@ main = do
   run sentence "foo!bar baz."
   run sentence "foo,bar,baz."
   run sentence "foo,bar!baz"
+  putStrLn "\t>> Parsec102 <<"
+  putStrLn "run expr \"1+2*3\""
+  run expr "1+2*3"
+  putStrLn "run expr \"(1+2)*3\""
+  run expr "(1+2)*3"
