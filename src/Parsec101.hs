@@ -11,6 +11,7 @@ module Parsec101
   , nesting1
   , word
   , word1
+  , word2
   , sentence
   )
   where
@@ -58,8 +59,8 @@ testOr1 = do{ P.char '('
 testOr2 :: P.Parser [Char]
 testOr2 = P.try (P.string "(a)")
           P.<|> P.string "(b)"
-
 testOr3 :: P.Parser [Char]
+
 testOr3 = do{ P.try (P.string "(a")
                     ; P.char ')'
                     ; return "(a)"
@@ -101,14 +102,6 @@ sentence = do{ words <- P.sepBy1 word1 separator
 separator :: P.Parser ()
 separator = P.skipMany1 (P.space P.<|> P.char ',')
 
--- Now let's start trying to create
--- a more pratical example
--- :ricardinst!ricardinst@ricardinst.tmi.twitch.tv PRIVMSG #rafiusky :Shizukani shite kudasai!
-username :: P.Parser Char
-username = do{ P.char ':'
-             ; P.letter
-             ; P.char '!'
-             }
-
--- PING :tmi.twitch.tv
--- :tmi.twitch.tv 004 rafiuskybot :-
+-- Improved error message
+word2 :: P.Parser [Char]
+word2 = P.many1 P.letter P.<?> "word"
